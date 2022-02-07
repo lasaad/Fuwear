@@ -2,29 +2,73 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using Moq;
 using Fuwear.WebApi.Services.Interfaces;
+using Fuwear.WebApi.Services;
 
 namespace Fuwear.Test
 {
     [TestClass]
     public class FizzBuzzTest
     {
-        private IFizzBuzz _fizzbuzz { get; set; }
-
         public FizzBuzzTest()
         {
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void NoFizzNoBuzz()
         {
             // Arrange
-            IFizzBuzz fournisseurMeteo = Mock.Of<IFizzBuzz>();
+            FizzBuzzService service = new FizzBuzzService();
 
-            IFizzBuzz obj = Mock.Of<IFizzBuzz>();
-            Mock.Get(obj).Setup(x => x.GetFizzBuzz(1)).Returns("1");
-            Mock.Get(obj).Setup(x => x.GetFizzBuzz(6)).Returns("Fizz");
-            Mock.Get(obj).Setup(x => x.GetFizzBuzz(6)).Returns("Fizz");
+            //Act
+            string result = service.GetFizzBuzz(1);
+
+            //Assert
+            Assert.AreEqual(result, "1");
 
         }
+
+        [TestMethod]
+        public void FizzTest()
+        {
+            // Arrange
+            FizzBuzzService service = new FizzBuzzService();
+
+            //Act
+            string result = service.GetFizzBuzz(3);
+
+            //Assert
+            Assert.AreEqual(result, "Fizz");
+
+        }
+
+        [TestMethod]
+        public void BuzzTest()
+        {
+            // Arrange
+            FizzBuzzService service = new FizzBuzzService();
+
+            //Act
+            string result = service.GetFizzBuzz(5);
+
+            //Assert
+            Assert.AreEqual(result, "Buzz");
+
+        }        
+        
+        [TestMethod]
+        public void FizzBuzzOk()
+        {
+            // Arrange
+            FizzBuzzService service = new FizzBuzzService();
+
+            //Act
+            string result = service.GetFizzBuzz(15);
+
+            //Assert
+            Assert.AreEqual(result, "FizzBuzz");
+
+        }
+
+
     }
 }
